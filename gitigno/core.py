@@ -1,6 +1,6 @@
 import click
 
-from constants import (
+from .constants import (
     START_MESSAGE,
     ERROR_TEXT,
     ECHO_LABEL,
@@ -8,7 +8,7 @@ from constants import (
     PROG_NAME,
 )
 
-from utils import (
+from .utils import (
     display_text_block, 
     request_gitignore, 
     display_ascii_art, 
