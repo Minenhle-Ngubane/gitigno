@@ -11,7 +11,7 @@ setuptools.setup(
     description = "A Python CLI tool that generates a .gitignore template file using the gitignore.io API",
     long_description = long_description,
     long_description_content_type = "text/markdown",
-    url = "package URL",
+    url = "https://github.com/Minenhle-Ngubane/gitigno",
     package_dir = {"": "gitigno"},
     packages = setuptools.find_packages(where="gitigno"),
     license="MIT",
