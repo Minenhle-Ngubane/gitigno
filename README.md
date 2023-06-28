@@ -51,4 +51,4 @@ I made it pip package for easy installation for anyone who wants to check it out
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+`gitigno` is distributed under the terms of the [MIT](https://choosealicense.com/licenses/mit/) license.
