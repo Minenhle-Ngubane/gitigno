@@ -19,4 +19,4 @@ __releasedate__ = "20230628"
 
 
 # x.y.z or x.y.z.dev0 -- semver
-__version__ = "0.0.1"
+__version__ = "0.0.2"

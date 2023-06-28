@@ -5,7 +5,7 @@ with open("./README.md", "r", encoding = "utf-8") as f:
 
 setuptools.setup(
     name = "gitigno",
-    version = "0.0.1",
+    version = "0.0.2",
     author = "Minenhle Ngubane",
     author_email = "mino@minenhlengubane.com",
     description = "A Python CLI tool that generates a .gitignore template file using the gitignore.io API",

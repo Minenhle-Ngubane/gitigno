@@ -1,7 +1,7 @@
 ECHO_LABEL = "\033[1;36m[gitino]\033[0m"
 
 
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 
 
 PROG_NAME = "Gitigno"
