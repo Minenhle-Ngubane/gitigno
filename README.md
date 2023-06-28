@@ -15,30 +15,30 @@ pip install gitigno
 
 ```python
 # creating a .gitignore template
-> python gitigno create -t "<template-name>"
+> python -m gitigno create -t "<template-name>"
 
 # if you want to create for more than one template
-> python gitigno create -t "<template-name>,<template-name>,..."
+> python -m gitigno create -t "<template-name>,<template-name>,..."
 
 
 """
  Here are examples for creating a .gitignore template for django & astro
 """
-> python gitigno create -t "django,astro"
+> python -m gitigno create -t "django,astro"
 # or 
-> python gitigno create --template "django,astro"
+> python -m gitigno create --template "django,astro"
 # or 
-> python gitigno create # a prompt will ask you to enter template
+> python -m gitigno create # a prompt will ask you to enter template
 
 
 """ 
 Shows a table of available templates on gitignore.io.
 Not all templates names are listed becasue the list is too long
 """
-> python gitigno --tnames
+> python -m gitigno --tnames
 
 # for help
-> python gitigno --help
+> python -m gitigno --help
 
 
 ```
