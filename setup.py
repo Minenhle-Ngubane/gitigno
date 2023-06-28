@@ -12,8 +12,7 @@ setuptools.setup(
     long_description = long_description,
     long_description_content_type = "text/markdown",
     url = "https://github.com/Minenhle-Ngubane/gitigno",
-    package_dir = {"": "gitigno"},
-    packages = setuptools.find_packages(where="gitigno"),
+    packages = setuptools.find_packages(),
     license="MIT",
     classifiers = [
         "Programming Language :: Python :: 3.10",
