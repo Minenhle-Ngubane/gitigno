@@ -2,6 +2,8 @@
 
 Gitigno is a Python CLI tool that automatically generates .ignore templates using the [gitignore.io](https://gitignore.io) API. 
 
+### Preview
+![](demo.gif)
 
 ## Installation
 
