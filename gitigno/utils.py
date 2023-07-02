@@ -1,68 +1,73 @@
 import click
 import requests
+from tabulate import tabulate
 
 
-def request_gitignore(templates):
-    url = f"https://www.toptal.com/developers/gitignore/api/{','.join(templates)}"
-    response = requests.get(url)
-
-    if response.status_code == 200:
+def fetch_templates(templates):
+    try:
+        url = f"https://www.toptal.com/developers/gitignore/api/{','.join(templates)}"
+        response = requests.get(url)
+        response.raise_for_status()  # Raise an exception for unsuccessful response status codes
         return response.text
-    else:
+    
+    except (requests.exceptions.RequestException, IOError) as e:
+        message = click.style(f"\U00002716 \U00002716 \U0001F614 \U0001F44E {str(e)}.", fg="red", bold=True)
+        click.echo(message)
         return None
     
 
-def show_available_templates(ctx, param, value):
-    if not value or ctx.resilient_parsing:
-        return
-    click.echo("    The following table only contains some of the available templates.\033[1;36m Go to https://github.io for the full list\033[0m")
-    display_available_templates_table()
-    ctx.exit()
+def display_template_names_table(ctx, param, value):
+    if value and not ctx.resilient_parsing:
+        generate_template_names_table()
+        ctx.exit()
 
+
+def generate_template_names_table():
+    try:
+        # Send GET request to gitignore.io API to fetch template names
+        response = requests.get("https://www.gitignore.io/api/list?format=lines")
+        response.raise_for_status()  # Raise an exception for unsuccessful response status codes
+        template_names = response.text.splitlines()
+
+        # Prepare table data
+        table_data = []
+        for i in range(0, len(template_names), 6):
+            row = template_names[i:i + 6]
+            table_data.append(row)
+
+        # Generate and print the table
+        table = tabulate(
+            table_data, 
+            headers=[
+                "Template Name", 
+                "Template Name",
+                "Template Name",
+                "Template Name",
+                "Template Name",
+                "Template Name"
+            ], 
+            tablefmt="fancy_grid"
+        )
+        click.clear()
+        click.secho(table, fg="green")
+        
+    except (requests.exceptions.RequestException, IOError) as e:
+        message = click.style(
+            f"\U00002716 \U00002716 \U0001F614 \U0001F44E Error occurred while fetching template names.\n Details: {str(e)}",
+            fg="red",
+            bold=True
+        )
+        click.echo(message)
     
-def display_text_block(text):
-    lines = text.split("\n")
-    indented_lines = ["    " + line for line in lines]
-    block_text = "\n".join(indented_lines)
-    click.echo(block_text)
-
     
 def display_ascii_art():
-    art = r"""""""""
-    
+    art = """
     ░██████╗░██╗████████╗██╗░██████╗░███╗░░██╗░█████╗░
     ██╔════╝░██║╚══██╔══╝██║██╔════╝░████╗░██║██╔══██╗
     ██║░░██╗░██║░░░██║░░░██║██║░░██╗░██╔██╗██║██║░░██║
     ██║░░╚██╗██║░░░██║░░░██║██║░░╚██╗██║╚████║██║░░██║
     ╚██████╔╝██║░░░██║░░░██║╚██████╔╝██║░╚███║╚█████╔╝
-    ░╚═════╝░╚═╝░░░╚═╝░░░╚═╝░╚═════╝░╚═╝░░╚══╝░╚════╝░                            
-    """""""""""
-    
-    click.echo("\033[32m" + art + "\033[0m")
-
-
-def display_available_templates_table():
-    table = r"""
-    ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗  
-    ║   adobe                  advancedinstaller   c                   c++                 elisp               elixir         ║ 
-    ║   adventuregamestudio    agda                codekit             codesniffer         elm                 emacs          ║ 
-    ║   alteraquartusii        altium              codeio              coffeescript        ember               ensime         ║ 
-    ║   amplify                android             commonlisp          compodoc            erlang              espresso       ║
-    ║   androidstudio          angular             composer            compressed          executable          exercism       ║
-    ║   anjuta                 ansible             compressedarchive   compression         expressionengine    extjs          ║
-    ║   ansibletower           apachecordova       conan               concrete5           git                 gitbook        ║
-    ║   apachehadoop           appbuilder          coq                 cordova             go                  goland         ║
-    ║   appcode                appcode+all         craftcms            crashlytics         goland+all          goland+iml     ║
-    ║   appcode+iml            appengine           diff                diskimage           godot               goodsync       ║
-    ║   appceleratortitanium   aptanastudio        django              docfx               gradle              grails         ║
-    ║   assembler              astro               dotfilessh          dotnetcore          helm                hexo           ║
-    ║   atmelstudio            audio               dreamweaver         dropbox             redis               remix          ║
-    ║   autohotkey             automationstudio    drupal              drupal7             vue                 vuejs          ║
-    ║   autotools              autotools+strict    drupal8             episerver           visualstudiocode    vivado         ║
-    ║   azurefunctions         azurite             eagle               eclipse             visualbasic         visualstudio   ║
-    ║   backup                 ballerina           eiffelstudio        elasticbeanstalk    virtualenv          virtuoso       ║             
-    ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝                      
+    ░╚═════╝░╚═╝░░░╚═╝░░░╚═╝░╚═════╝░╚═╝░░╚══╝░╚════╝░
     """
-    
-    click.echo("\033[32m" + table + "\033[0m")
-    
+
+    click.secho(art, fg="green")

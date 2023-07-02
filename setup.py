@@ -19,7 +19,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires = ["click>=8.1.3", "requests>=2.31.0"],
+    install_requires = ["click>=8.1.3", "requests>=2.31.0", "tabulate"],
     extras_require = {
         "dev": ["pytest>=7.4.0", "twine>=4.0.2"],
     },

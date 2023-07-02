@@ -1,42 +1,43 @@
 import click
 
-from .constants import (
+from constants import (
     START_MESSAGE,
-    ERROR_TEXT,
-    ECHO_LABEL,
+    ERROR_MESSAGE,
     VERSION,
     PROG_NAME,
 )
 
-from .utils import (
-    display_text_block, 
-    request_gitignore, 
+from utils import (
+    fetch_templates, 
     display_ascii_art, 
-    display_available_templates_table,
-    show_available_templates
+    display_template_names_table
 )
 
 
+# Define the main command group for the CLI
 @click.group()
+@click.pass_context
 @click.version_option(version=VERSION, prog_name=PROG_NAME)
 @click.option(
     "--tnames", 
     is_flag=True, 
-    callback=show_available_templates, 
+    callback=display_template_names_table, 
     expose_value=False, 
     is_eager=True,
     help="Show a list of available templates in table form and exit."
 )
-@click.pass_context
 def cli(ctx):
+    # Determine the subcommand that was invoked
     subcommand = ctx.invoked_subcommand
     
+    # If the subcommand is 'create', display ASCII art and welcome text
     if subcommand == "create":
-        click.echo("\033[H\033[J")
-        display_ascii_art()
-        display_text_block(START_MESSAGE)
+        click.clear() # Clear the console to start with a clean presentation
+        display_ascii_art() # Display ASCII art representing the CLI
+        click.echo(START_MESSAGE) # Display the welcome message
 
 
+# Define the 'create' subcommand for the CLI
 @cli.command()
 @click.option(
     "-t",
@@ -45,17 +46,25 @@ def cli(ctx):
     help="Name(s) used to generate the required .gitignore file",
 )
 def create(template):
-    gitignore_content = request_gitignore(template.split(","))
+    # Request .gitignore content based on the given template names
+    gitignore_content = fetch_templates(template.split(","))
 
+    # If .gitignore content is generated successfully, write it to the file
     if gitignore_content:
         with open(".gitignore", "w") as f:
             f.write(gitignore_content)
-            click.echo(ECHO_LABEL + "\033[1;32m \u2713\u2713 \U0001F600 \U0001F44D .gitignore file created successfully.\033[0m")
+            success_message = click.style(
+                "\u2713\u2713 \U0001F600 \U0001F44D .gitignore file created successfully.",
+                fg="green", 
+                bold=True
+            )
+            click.echo(success_message)
     
+    # If there's an error, display a failure message
     else:
-        click.echo(ECHO_LABEL + f"\033[1;31m \U00002716 \U00002716 \U0001F614 \U0001F44E Failed to generate .gitignore file for {template}.\033[0m")
-        display_text_block(ERROR_TEXT)
+        click.echo(ERROR_MESSAGE)
 
 
+# Run the CLI if this script is executed directly
 if __name__ == "__main__":
     cli()

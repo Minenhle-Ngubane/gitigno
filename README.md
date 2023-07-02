@@ -1,56 +1,84 @@
-# Gitigno
+# Gitigno - A CLI Tool to Generate .gitignore Files
 
-Gitigno is a Python CLI tool that automatically generates .ignore templates using the [gitignore.io](https://gitignore.io) API. 
+Gitigno is a command-line interface (CLI) tool that simplifies the process of generating `.gitignore` files for your projects. It utilizes the gitignore.io API to fetch a list of available templates and allows you to create a customized `.gitignore` file based on the technologies and frameworks you are using in your project.
 
-### Preview
+## Preview
 ![](demo1.gif)
+
+## Features
+
+- Fetches a list of available templates from gitignore.io API.
+- Generates a customized `.gitignore` file based on your selected templates.
+- Easy-to-use CLI interface with clear instructions.
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install gitignore-generator.
+To install Gitigno, you can use pip:
 
-```bash
+```
 pip install gitigno
 ```
 
 ## Usage
 
-```python
-# creating a .gitignore template
-> python -m gitigno create -t "<template-name>"
+After installing Gitigno, you can use the `gitigno` command to interact with the tool. Here are the available commands:
 
-# if you want to create for more than one template
-> python -m gitigno create -t "<template-name>,<template-name>,..."
+### Show Available Templates
 
-
-"""
- Here are examples for creating a .gitignore template for django & astro
-"""
-> python -m gitigno create -t "django,astro"
-# or 
-> python -m gitigno create --template "django,astro"
-# or 
-> python -m gitigno create # a prompt will ask you to enter template
-
-
-""" 
-Shows a table of available templates on gitignore.io.
-Not all templates names are listed becasue the list is too long
-"""
-> python -m gitigno --tnames
-
-# for help
-> python -m gitigno --help
-
+To see a list of available templates, use the following command:
 
 ```
+gitigno --tnames
+```
 
-## Contributing
+This will display a table with all the available template names from gitignore.io.
 
-This is just a fun project for my portfolio which I may or may not continue to improve in the future.
+### Create .gitignore File
 
-I made it pip package for easy installation for anyone who wants to check it out.
+To generate a `.gitignore` file based on selected templates, use the following command:
+
+```
+gitigno create -t <template_name1>,<template_name2>,...
+```
+
+Replace `<template_name1>,<template_name2>,...` with the names of the templates you want to include in your `.gitignore` file, separated by commas. For example:
+
+```
+gitigno create -t python,java,django
+```
+
+This will create a `.gitignore` file in the current directory with the specified templates.
+
+## Examples
+
+- To generate a `.gitignore` file for a Python project, use:
+
+```
+gitigno create -t python
+```
+
+- To generate a `.gitignore` file for a Node.js project, use:
+
+```
+gitigno create -t node
+```
 
 ## License
 
-`gitigno` is distributed under the terms of the [MIT](https://choosealicense.com/licenses/mit/) license.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contributing
+
+Contributions are welcome! If you find any issues or have suggestions for improvement, feel free to open an issue or submit a pull request.
+
+## Acknowledgments
+
+- Special thanks to the gitignore.io team for providing the API used by this tool.
+
+## Author
+
+Gitigno is maintained by [Minenhle Ngubane](https://github.com/Minenhle-Ngubane).
+
+---
+
+By using Gitigno, you can streamline the process of creating `.gitignore` files for your projects, ensuring that you don't accidentally commit unnecessary files or directories to your version control system. Happy coding!
