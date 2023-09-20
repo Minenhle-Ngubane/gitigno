@@ -28,7 +28,7 @@ After installing Gitigno, you can use the `gitigno` command to interact with the
 To see a list of available templates, use the following command:
 
 ```
-gitigno --tnames
+python -m gitigno --tnames
 ```
 
 This will display a table with all the available template names from gitignore.io.
@@ -38,13 +38,13 @@ This will display a table with all the available template names from gitignore.i
 To generate a `.gitignore` file based on selected templates, use the following command:
 
 ```
-gitigno create -t <template_name1>,<template_name2>,...
+python -m gitigno create -t <template_name1>,<template_name2>,...
 ```
 
 Replace `<template_name1>,<template_name2>,...` with the names of the templates you want to include in your `.gitignore` file, separated by commas. For example:
 
 ```
-gitigno create -t python,java,django
+python -m gitigno create -t python,java,django
 ```
 
 This will create a `.gitignore` file in the current directory with the specified templates.
@@ -54,13 +54,13 @@ This will create a `.gitignore` file in the current directory with the specified
 - To generate a `.gitignore` file for a Python project, use:
 
 ```
-gitigno create -t python
+python -m gitigno create -t python
 ```
 
 - To generate a `.gitignore` file for a Node.js project, use:
 
 ```
-gitigno create -t node
+python -m gitigno create -t node
 ```
 
 ## License
